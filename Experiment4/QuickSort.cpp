@@ -47,8 +47,8 @@ void swap(int &a, int &b)
 }
 main()
 {
-    int n = 100000;
-    int a[n];
+    int n = 1000;
+    int *a = new int[n];
 
     for (int i = 0; i < n; i++)
     {
@@ -56,15 +56,14 @@ main()
                   // a[i] = n - i ;      // for unsorted data
     }
 
-    clock_t t = clock();
+    auto start = high_resolution_clock::now();
 
     QuickSort(a, 0, n - 1);
 
-    t = clock() - t;
+    auto elapsed = high_resolution_clock::now() - start;
+    long long time_taken = duration_cast<nanoseconds>(elapsed).count();
 
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    cout << endl;
+    cout << "Time taken by algoridhm is :" << time_taken << endl;
     return 0;
 }

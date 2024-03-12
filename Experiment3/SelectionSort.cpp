@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 void swap(int &a, int &b)
@@ -32,29 +33,25 @@ void selectionSort(int a[], int n)
 
 main()
 {
-    int n = 10;
-    int a[n];
+    int n = 1000000;
+    int *a = new int[n];
+
+    auto start = high_resolution_clock::now();
 
     for (int i = 0; i < n; i++)
     {
-        a[i] = i; // for best  case
-                  // a[i] = n - i ;      // for worst case
+        // for best  case
+        a[i] = i;
+        // for worst case
+        // a[i] = n - i;
     }
 
-    clock_t t = clock();
+    selectionSort(a, 67435);
 
-    selectionSort(a, 10);
+    auto elapsed = high_resolution_clock::now() - start;
+    long long time_taken = duration_cast<nanoseconds>(elapsed).count();
 
-    t = clock() - t;
-
-    for (int i : a)
-    {
-        cout << i << " ";
-    }
     cout << endl;
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    cout << "Time taken by algoridhm is :" << time_taken << endl;
     return 0;
 }

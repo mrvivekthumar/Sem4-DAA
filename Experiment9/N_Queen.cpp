@@ -1,4 +1,7 @@
 #include <bits/stdc++.h>
+#include <chrono>
+using namespace std::chrono;
+using namespace std;
 #define N 4
 using namespace std;
 
@@ -76,13 +79,13 @@ bool solveNQ()
 
 int main()
 {
-    clock_t t;
-    t = clock();
+    auto start = high_resolution_clock::now();
+
     solveNQ();
-    t = clock() - t;
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
+    cout << "Element not found." << endl;
+    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
+
     return 0;
 }

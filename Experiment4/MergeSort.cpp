@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 void swap(int &a, int &b)
 {
@@ -53,7 +55,7 @@ void MergeSort(int a[], int l, int h)
 main()
 {
     int n = 100000;
-    int a[n];
+    int *a = new int[n];
 
     for (int i = 0; i < n; i++)
     {
@@ -61,7 +63,7 @@ main()
                   // a[i] = n - i ;      // for unsorted data
     }
 
-    clock_t t = clock();
+    auto start = high_resolution_clock::now();
 
     MergeSort(a, 0, n - 1);
 
@@ -69,12 +71,10 @@ main()
     {
         cout << a[i] << " ";
     }
+    auto elapsed = high_resolution_clock::now() - start;
+    long long time_taken = duration_cast<nanoseconds>(elapsed).count();
 
-    t = clock() - t;
     cout << endl;
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    cout << "Time taken by algoridhm is :" << time_taken << endl;
     return 0;
 }

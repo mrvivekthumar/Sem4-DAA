@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 void insertionSort(int arr[], int n)
@@ -35,20 +36,18 @@ int main()
     for (int i = 0; i < N; i++)
     {
         arr[i] = i; // for best  case
-                    // arr[i] = N - i ;      // for worst case
+        // arr[i] = N - i; // for worst case
     }
 
-    clock_t t = clock();
+    auto start = high_resolution_clock::now();
 
     insertionSort(arr, N);
     printArray(arr, N);
 
-    t = clock() - t;
-
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
+    cout << "Element not found." << endl;
+    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
 
     return 0;
 }

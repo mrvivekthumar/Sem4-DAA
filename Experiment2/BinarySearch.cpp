@@ -24,14 +24,15 @@ int binarySearch(int arr[], int n, int x)
 int main()
 {
     int n;
+    cout << "Enter The Number : ";
     cin >> n;
 
+    auto start = high_resolution_clock::now();
     int *arr = new int[n];
     for (int i = 0; i < n; ++i)
         arr[i] = i;
 
-    auto start = high_resolution_clock::now();
-    int result = binarySearch(arr, n, INT_MAX);
+    int result = binarySearch(arr, n, 12);
     auto stop = high_resolution_clock::now();
 
     auto duration = duration_cast<nanoseconds>(stop - start);

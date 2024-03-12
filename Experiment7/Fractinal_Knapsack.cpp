@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 struct Item
 {
@@ -46,7 +48,14 @@ int main()
                   {60, 10}};
     int n = sizeof(arr) / sizeof(arr[0]);
 
+    auto start = high_resolution_clock::now();
+
     cout << knapsack(w, arr, n);
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
+    cout << "Element not found." << endl;
+    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
 
     return 0;
 }

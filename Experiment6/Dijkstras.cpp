@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include <chrono>
 #include <limits.h>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 #define V 9
@@ -20,9 +21,9 @@ int minDistance(int dist[], bool sptSet[])
 
 void printSolution(int dist[])
 {
-    cout << "Vertex \t Distance from Source" << endl;
+    cout << "     Vertex \t Distance from Source" << endl;
     for (int i = 0; i < V; i++)
-        cout << i << " \t\t\t\t" << dist[i] << endl;
+        cout << "\t" << i << " \t\t" << dist[i] << endl;
 }
 
 void dijkstra(int graph[V][V], int src)
@@ -64,12 +65,13 @@ int main()
                        {8, 11, 0, 0, 0, 0, 1, 0, 7},
                        {0, 0, 2, 0, 0, 0, 6, 7, 0}};
 
-    clock_t t = clock();
+    auto start = high_resolution_clock::now();
+
     dijkstra(graph, 0);
-    t = clock() - t;
-    float time_taken = (float)t / CLOCKS_PER_SEC;
-    cout << endl
-         << "Time taken by algoridhm is :"
-         << time_taken << endl;
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
+    cout << "Element not found." << endl;
+    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
+
     return 0;
 }
