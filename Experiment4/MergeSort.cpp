@@ -59,8 +59,8 @@ main()
 
     for (int i = 0; i < n; i++)
     {
-        a[i] = i; // for sorted data
-                  // a[i] = n - i ;      // for unsorted data
+        a[i] = i;     // for sorted data
+        a[i] = n - i; // for unsorted data
     }
 
     auto start = high_resolution_clock::now();

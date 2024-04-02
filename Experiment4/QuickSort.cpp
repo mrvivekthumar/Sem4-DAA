@@ -38,27 +38,25 @@ void QuickSort(int a[], int l, int h)
         QuickSort(a, j + 1, h);
     }
 }
-
-void swap(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-main()
+int main()
 {
     int n = 1000;
     int *a = new int[n];
 
     for (int i = 0; i < n; i++)
     {
-        a[i] = i; // for sorted data
-                  // a[i] = n - i ;      // for unsorted data
+        // a[i] = i; // for sorted data
+        a[i] = n - i; // for unsorted data
     }
 
     auto start = high_resolution_clock::now();
 
-    QuickSort(a, 0, n - 1);
+    QuickSort(a, 0, n);
+
+    for (int i = 0; i < 50; i++)
+    {
+        cout << a[i] << "   ";
+    }
 
     auto elapsed = high_resolution_clock::now() - start;
     long long time_taken = duration_cast<nanoseconds>(elapsed).count();
