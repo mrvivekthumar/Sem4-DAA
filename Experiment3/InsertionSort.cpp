@@ -34,8 +34,8 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        arr[i] = i; // for best  case
-        // arr[i] = N - i; // for worst case
+        // arr[i] = i; // for best  case
+        arr[i] = N - i; // for worst case
     }
 
     auto start = high_resolution_clock::now();
@@ -45,7 +45,6 @@ int main()
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<nanoseconds>(end - start);
-    cout << "Element not found." << endl;
     cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
 
     return 0;

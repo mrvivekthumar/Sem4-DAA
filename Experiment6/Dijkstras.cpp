@@ -31,11 +31,10 @@ void dijkstra(int graph[V][V], int src)
     int dist[V];
 
     bool sptSet[V];
+    dist[src] = 0;
 
     for (int i = 0; i < V; i++)
         dist[i] = INT_MAX, sptSet[i] = false;
-
-    dist[src] = 0;
 
     for (int count = 0; count < V - 1; count++)
     {

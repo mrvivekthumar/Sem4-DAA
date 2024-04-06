@@ -1,61 +1,36 @@
 #include <bits/stdc++.h>
-#include <chrono>
-using namespace std::chrono;
 using namespace std;
-struct Item
-{
-    int profit, weight;
-    Item(int profit, int weight)
-    {
-        this->profit = profit;
-        this->weight = weight;
-    }
-};
+int val[105];
+int wt[105];
+int dp[105][100005];
 
-bool mycmp(struct Item a, struct Item b)
+int func(int ind, int wt_left)
 {
-    double r1 = (double)a.profit / a.weight;
-    double r2 = (double)b.profit / b.weight;
+    if (wt_left == 0)
+        return 0;
+    if (ind < 0)
+        return 0;
+    if (dp[ind][wt_left] != -1)
+        return dp[ind][wt_left];
 
-    return r1 > r2;
-}
-double knapsack(int w, struct Item arr[], int n)
-{
-    sort(arr, arr + n, mycmp);
-    double ans = 0.0;
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i].weight <= w)
-        {
-            ans += arr[i].profit;
-            w -= arr[i].weight;
-        }
-        else
-        {
-            ans += arr[i].profit * ((double)w / (double)arr[i].weight);
-            break;
-        }
-    }
-    return ans;
+    int ans = func(ind - 1, wt_left); // not choose
+
+    if (wt_left - wt[ind] >= 0) // choose
+        ans = max(ans, func(ind - 1, wt_left - wt[ind]) + val[ind]);
+
+    return dp[ind][wt_left] = ans;
 }
 
 int main()
 {
-
-    int w = 50;
-    Item arr[] = {{120, 30},
-                  {100, 20},
-                  {60, 10}};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    auto start = high_resolution_clock::now();
-
-    cout << knapsack(w, arr, n);
-
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<nanoseconds>(end - start);
-    cout << " Element not found." << endl;
-    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
+    memset(dp, -1, sizeof(dp));
+    int n, w;
+    cin >> n >> w;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> wt[i] >> val[i];
+    }
+    cout << func(n - 1, w);
 
     return 0;
 }

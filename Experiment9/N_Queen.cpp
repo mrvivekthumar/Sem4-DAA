@@ -1,91 +1,59 @@
 #include <bits/stdc++.h>
-#include <chrono>
-using namespace std::chrono;
 using namespace std;
-#define N 4
-using namespace std;
-
-void printSolution(int board[N][N])
+int x[10000];
+bool isPossible(int k, int col)
 {
-    for (int i = 0; i < N; i++)
+    for (int row = 0; row < k; row++)
     {
-        for (int j = 0; j < N; j++)
-            if (board[i][j])
-                cout << "Q ";
-            else
-                cout << ". ";
-        printf("\n");
-    }
-}
-
-bool isSafe(int board[N][N], int row, int col)
-{
-    int i, j;
-
-    for (i = 0; i < col; i++)
-        if (board[row][i])
-            return false;
-
-    for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
-        if (board[i][j])
-            return false;
-
-    for (i = row, j = col; j >= 0 && i < N; i++, j--)
-        if (board[i][j])
-            return false;
-
-    return true;
-}
-
-bool solveNQUtil(int board[N][N], int col)
-{
-    if (col >= N)
-        return true;
-
-    for (int i = 0; i < N; i++)
-    {
-
-        if (isSafe(board, i, col))
+        if (x[row] == col || abs(x[row] - col) == abs(k - row))
         {
-
-            board[i][col] = 1;
-
-            if (solveNQUtil(board, col + 1))
-                return true;
-
-            board[i][col] = 0;
+            return false;
         }
     }
-
-    return false;
-}
-
-bool solveNQ()
-{
-    int board[N][N] = {{0, 0, 0, 0},
-                       {0, 0, 0, 0},
-                       {0, 0, 0, 0},
-                       {0, 0, 0, 0}};
-
-    if (solveNQUtil(board, 0) == false)
-    {
-        cout << "Solution does not exist";
-        return false;
-    }
-
-    printSolution(board);
     return true;
+}
+int cnt = 0;
+void fun(int k, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (isPossible(k, i))
+        {
+            x[k] = i;
+            if (k == n - 1)
+            {
+                cnt++;
+                cout << "SOLUTION : " << cnt << "\n";
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (x[i] == j)
+                        {
+                            cout << "Q ";
+                        }
+                        else
+                        {
+                            cout << ". ";
+                        }
+                    }
+                    cout << "\n";
+                }
+                cout << "\n";
+                break;
+            }
+            else
+            {
+                fun(k + 1, n);
+            }
+        }
+    }
 }
 
 int main()
 {
-    auto start = high_resolution_clock::now();
 
-    solveNQ();
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<nanoseconds>(end - start);
-    cout << "Element not found." << endl;
-    cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
-
-    return 0;
+    int n;
+    cin >> n;
+    fun(0, n);
 }

@@ -3,31 +3,18 @@
 #include <chrono>
 using namespace std::chrono;
 using namespace std;
-
-void swap(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
 void selectionSort(int a[], int n)
 {
-    int min = 0, minIndex = 0, j = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-
-        min = a[i];
-        minIndex = i;
-        for (j = i + 1; j < n; j++)
+        int min_idx = i;
+        for (int j = i + 1; j < n; j++)
         {
-            if (a[j] < min)
-            {
-                min = a[j];
-                minIndex = j;
-            }
+            if (a[j] < a[min_idx])
+                min_idx = j;
         }
-        swap(a[i], a[minIndex]);
+        if (min_idx != i)
+            swap(a[min_idx], a[i]);
     }
 }
 
@@ -41,12 +28,17 @@ main()
     for (int i = 0; i < n; i++)
     {
         // for best  case
-        a[i] = i;
+        // a[i] = i;
         // for worst case
-        // a[i] = n - i;
+        a[i] = n - i;
     }
 
-    selectionSort(a, 67435);
+    selectionSort(a, 5000);
+
+    for (int i = 0; i < 20; i++)
+    {
+        cout << a[i] << "   ";
+    }
 
     auto elapsed = high_resolution_clock::now() - start;
     long long time_taken = duration_cast<nanoseconds>(elapsed).count();

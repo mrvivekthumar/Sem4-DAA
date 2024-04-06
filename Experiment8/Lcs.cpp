@@ -28,7 +28,6 @@ int main()
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<nanoseconds>(end - start);
-    cout << "Element not found." << endl;
     cout << "Time taken: " << duration.count() << " nanoseconds" << endl;
 
     return 0;
